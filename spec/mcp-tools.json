@@ -1,0 +1,16 @@
+{
+  "worldq": "0.1",
+  "tools": [
+    {"name":"world.inspect","mutates":false,"purpose":"Inspect world metadata, regions, entities and available fidelity."},
+    {"name":"world.encode","mutates":false,"purpose":"Encode a supported source representation into a WORLDQ package."},
+    {"name":"world.quantize","mutates":false,"purpose":"Apply an explicit quantization profile and report precision/error metrics."},
+    {"name":"world.stream","mutates":false,"purpose":"Request progressive regions and fidelity for an observer or task."},
+    {"name":"world.decode","mutates":false,"purpose":"Reconstruct requested WORLDQ content and report unresolved dependencies."},
+    {"name":"world.enter","mutates":false,"purpose":"Create an authorized observer/agent presence in a reconstructed region."},
+    {"name":"world.modify","mutates":true,"purpose":"Propose an authorized world mutation."},
+    {"name":"world.commit","mutates":true,"purpose":"Persist an approved mutation and emit a receipt."},
+    {"name":"world.verify","mutates":false,"purpose":"Verify package integrity, dependencies, reconstruction and/or commit receipts."}
+  ],
+  "authorityRule":"Tool discovery never grants mutation authority. Mutation requires an external mandate/policy decision.",
+  "receiptRequiredFor":["world.commit"]
+}
