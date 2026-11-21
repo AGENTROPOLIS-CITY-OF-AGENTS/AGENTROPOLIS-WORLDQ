@@ -1,0 +1,440 @@
+{
+  "$defs": {
+    "building": {
+      "additionalProperties": false,
+      "properties": {
+        "building_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "dimensions_m": {
+          "$ref": "#/$defs/dimensions_m"
+        },
+        "floors": {
+          "items": {
+            "$ref": "#/$defs/floor"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "materials": {
+          "items": {
+            "$ref": "#/$defs/material"
+          },
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "position_m": {
+          "$ref": "#/$defs/position_m"
+        }
+      },
+      "required": [
+        "building_id",
+        "name",
+        "dimensions_m",
+        "position_m",
+        "floors"
+      ],
+      "type": "object"
+    },
+    "camera": {
+      "additionalProperties": false,
+      "properties": {
+        "camera_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "field_of_view_deg": {
+          "exclusiveMinimum": 0,
+          "maximum": 180,
+          "type": "number"
+        },
+        "look_at_m": {
+          "$ref": "#/$defs/position_m"
+        },
+        "mode": {
+          "description": "P3 camera mode from REF-CAM-01 (select, enter, reset, cityView). View intent only; position_m, look_at_m and field_of_view_deg remain required and authoritative. A mode with no explicit geometry is not a camera.",
+          "enum": [
+            "select",
+            "enter",
+            "reset",
+            "cityView"
+          ],
+          "type": "string"
+        },
+        "position_m": {
+          "$ref": "#/$defs/position_m"
+        },
+        "standoff_m": {
+          "description": "Distance in meters from position_m to look_at_m implied by the mode, when the mode defines one (REF-CAM-01: select is a 40 unit stand off). Must agree with the explicit geometry within the pilot tolerance of 0.01 m; the explicit geometry wins on any disagreement.",
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "camera_id",
+        "position_m",
+        "field_of_view_deg"
+      ],
+      "type": "object"
+    },
+    "dimensions_m": {
+      "additionalProperties": false,
+      "properties": {
+        "depth_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "height_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "width_m",
+        "depth_m",
+        "height_m"
+      ],
+      "type": "object"
+    },
+    "district": {
+      "additionalProperties": false,
+      "properties": {
+        "buildings": {
+          "items": {
+            "$ref": "#/$defs/building"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "district_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "district_id",
+        "name",
+        "buildings"
+      ],
+      "type": "object"
+    },
+    "floor": {
+      "additionalProperties": false,
+      "properties": {
+        "dimensions_m": {
+          "$ref": "#/$defs/dimensions_m"
+        },
+        "elevation_m": {
+          "type": "number"
+        },
+        "floor_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "level": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rooms": {
+          "items": {
+            "$ref": "#/$defs/room"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "floor_id",
+        "level",
+        "rooms"
+      ],
+      "type": "object"
+    },
+    "material": {
+      "additionalProperties": false,
+      "properties": {
+        "base_color_hex": {
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "type": "string"
+        },
+        "material_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "metalness": {
+          "default": 0.1,
+          "description": "0 to 1. GENERATED default 0.1 when not specified.",
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "roughness": {
+          "default": 0.6,
+          "description": "0 to 1. GENERATED default 0.6 when not specified.",
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "material_id",
+        "name"
+      ],
+      "type": "object"
+    },
+    "position_m": {
+      "additionalProperties": false,
+      "properties": {
+        "x_m": {
+          "type": "number"
+        },
+        "y_m": {
+          "type": "number"
+        },
+        "z_m": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x_m",
+        "y_m",
+        "z_m"
+      ],
+      "type": "object"
+    },
+    "room": {
+      "additionalProperties": false,
+      "properties": {
+        "ceiling_height_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "dimensions_m": {
+          "$ref": "#/$defs/dimensions_m"
+        },
+        "function": {
+          "description": "P3 room function, adopted verbatim in v0.2.0. GENERATED unless a provenance record says otherwise.",
+          "enum": [
+            "entry",
+            "work",
+            "meeting",
+            "circulation",
+            "storage",
+            "utility"
+          ],
+          "type": "string"
+        },
+        "materials": {
+          "items": {
+            "$ref": "#/$defs/material"
+          },
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "position_m": {
+          "$ref": "#/$defs/position_m"
+        },
+        "room_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "room_id",
+        "name",
+        "dimensions_m",
+        "position_m"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://agentropolis.example/schemas/scene.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "PROVISIONAL pending NEURO approval of P0 definitions. Procedural scene specification for the Hermes City / Agentropolis Generative World Engine pilot, version 0.2.0 (reconciled P1 plus P3). Canonical structure is the nested districts/buildings/floors/rooms form. The P3 flat floor/rooms/objects form is a derived planner view only, never the canonical scene. MATH54, STEM54, POM54, CREATOR-CORE, CONSTRUCTION and other named Agentropolis systems are NOT yet implemented; use their principles only. All lengths are in meters unless a field states another unit explicitly. Material roughness/metalness defaults (0.6/0.1) and lighting defaults (400 lux, sun elevation 45 deg) are GENERATED decisions, not verified facts.",
+  "properties": {
+    "bounds_m": {
+      "additionalProperties": false,
+      "properties": {
+        "depth_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "height_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "width_m",
+        "depth_m",
+        "height_m"
+      ],
+      "type": "object"
+    },
+    "cameras": {
+      "items": {
+        "$ref": "#/$defs/camera"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "claim_labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Field path to claim label (VERIFIED, REPORTED, GENERATED, UNKNOWN). Labels what is a reference fact and what is a generated decision; they do not make a generated value verified.",
+      "type": "object"
+    },
+    "districts": {
+      "items": {
+        "$ref": "#/$defs/district"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "generator_name": {
+      "description": "Name of the generator tool, separate from the semver generator_version. Example: p3-generation-loop with generator_version 1.0.0. Tool names are never a version string.",
+      "type": "string"
+    },
+    "generator_version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[A-Za-z0-9.-]+)?$",
+      "type": "string"
+    },
+    "lighting": {
+      "additionalProperties": false,
+      "properties": {
+        "ambient_lux": {
+          "default": 400,
+          "description": "Ambient light in lux. GENERATED default 400 when not specified.",
+          "minimum": 0,
+          "type": "number"
+        },
+        "sun_azimuth_deg": {
+          "default": 180,
+          "maximum": 360,
+          "minimum": 0,
+          "type": "number"
+        },
+        "sun_elevation_deg": {
+          "default": 45,
+          "description": "Sun elevation in degrees. GENERATED default 45 when not specified.",
+          "maximum": 90,
+          "minimum": -90,
+          "type": "number"
+        },
+        "time_of_day": {
+          "default": "12:00",
+          "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ambient_lux",
+        "sun_elevation_deg"
+      ],
+      "type": "object"
+    },
+    "model_version": {
+      "description": "Model version, when a model was used. Null when generation used no model (this pilot uses no model).",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "type": "string"
+    },
+    "provenance_ref": {
+      "description": "Identifier of the provenance record set covering this scene. Must resolve to a provenance schema instance.",
+      "type": "string"
+    },
+    "reference_ids": {
+      "description": "Reference index entry ids this scene depends on (P3 references). Each id must resolve to a provenance record through provenance_ref; an id with no provenance record is UNVERIFIED.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "scene_id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.2.0",
+      "type": "string"
+    },
+    "seed": {
+      "description": "Deterministic generation seed. Same seed plus same generator version plus same inputs must reproduce the same scene.",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "status": {
+      "const": "PROVISIONAL",
+      "type": "string"
+    },
+    "units": {
+      "additionalProperties": false,
+      "properties": {
+        "angle": {
+          "enum": [
+            "degree",
+            "radian"
+          ],
+          "type": "string"
+        },
+        "length": {
+          "const": "meter",
+          "type": "string"
+        },
+        "time": {
+          "const": "second",
+          "type": "string"
+        }
+      },
+      "required": [
+        "length",
+        "angle",
+        "time"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "scene_id",
+    "seed",
+    "generator_version",
+    "units",
+    "districts",
+    "cameras"
+  ],
+  "title": "Hermes City World Engine Scene Specification",
+  "type": "object"
+}

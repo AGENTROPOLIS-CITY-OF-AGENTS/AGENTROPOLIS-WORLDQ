@@ -1,0 +1,380 @@
+{
+  "$defs": {
+    "defect": {
+      "additionalProperties": false,
+      "properties": {
+        "defect_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "blocker",
+            "major",
+            "minor",
+            "cosmetic"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "in-progress",
+            "fixed",
+            "wont-fix",
+            "deferred"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "defect_id",
+        "description",
+        "severity",
+        "status"
+      ],
+      "type": "object"
+    },
+    "operation": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "place_door"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "connects_to"
+            ]
+          }
+        }
+      ],
+      "description": "One typed, bounded geometry operation from the P3 allowlist. The executor only accepts these ops. An operation is a job record (how the scene was built), not part of the declarative scene spec. Each operation also maps to one spatial-graph asset node and one geometry node.",
+      "properties": {
+        "asset_id": {
+          "description": "Asset record this operation instantiates, when one exists. Omit when the placed geometry has no asset record; do not invent one.",
+          "type": "string"
+        },
+        "connects_to": {
+          "description": "Room id the door connects to. Required when op is place_door.",
+          "type": "string"
+        },
+        "dimensions_m": {
+          "additionalProperties": false,
+          "properties": {
+            "depth_m": {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            "height_m": {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            "width_m": {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            }
+          },
+          "required": [
+            "width_m",
+            "depth_m",
+            "height_m"
+          ],
+          "type": "object"
+        },
+        "material": {
+          "description": "Material token from the verified brand palette (REF-MAT-01).",
+          "type": "string"
+        },
+        "object_id": {
+          "description": "Identifier of the placed object, for example desk-1.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "place_box",
+            "place_cylinder",
+            "place_wall_segment",
+            "place_door",
+            "place_desk",
+            "place_light",
+            "place_marker"
+          ],
+          "type": "string"
+        },
+        "operation_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "position_m": {
+          "additionalProperties": false,
+          "properties": {
+            "x_m": {
+              "type": "number"
+            },
+            "y_m": {
+              "type": "number"
+            },
+            "z_m": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "x_m",
+            "y_m",
+            "z_m"
+          ],
+          "type": "object"
+        },
+        "room_id": {
+          "description": "Room the operation acts in.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_version": {
+          "const": "0.2.0",
+          "type": "string"
+        },
+        "spatial_graph_node_id": {
+          "description": "Spatial-graph node id for the placed object, when one exists.",
+          "type": "string"
+        },
+        "status": {
+          "const": "PROVISIONAL",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation_id",
+        "op",
+        "object_id",
+        "room_id",
+        "position_m",
+        "dimensions_m",
+        "material"
+      ],
+      "type": "object"
+    },
+    "performance_measurement": {
+      "additionalProperties": false,
+      "properties": {
+        "device_class": {
+          "enum": [
+            "low-phone",
+            "phone",
+            "desktop",
+            "workstation"
+          ],
+          "type": "string"
+        },
+        "frame_time_ms": {
+          "description": "Measured frame time in milliseconds.",
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "frames_per_second": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "measured_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "scene_memory_mb": {
+          "description": "Scene memory consumption in megabytes.",
+          "minimum": 0,
+          "type": "number"
+        },
+        "triangle_count": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "device_class",
+        "frame_time_ms",
+        "frames_per_second",
+        "scene_memory_mb"
+      ],
+      "type": "object"
+    },
+    "validation_result": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "not-run",
+            "not-applicable"
+          ],
+          "type": "string"
+        },
+        "validation_ref": {
+          "description": "Identifier of the validation record for this check.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "check_id",
+        "result"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://agentropolis.example/schemas/generation-job.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "PROVISIONAL pending NEURO approval of P0 definitions. One generation job record. Version 0.2.0 adds the optional operations list, the home of the P3 typed object ops.",
+  "properties": {
+    "asset_dependencies": {
+      "description": "Assets this job used, each by asset_id and the revision actually used.",
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "asset_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "revision": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id",
+          "revision"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "changes_from_previous": {
+      "description": "What changed relative to the previous job iteration, in plain text. Empty list means no change claimed.",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "escalation_state": {
+      "description": "Escalation state. escalated-to-human means a human decision is pending. escalated-to-coordinator means the pilot coordinator holds it. blocked means work cannot proceed.",
+      "enum": [
+        "none",
+        "escalated-to-human",
+        "escalated-to-coordinator",
+        "blocked"
+      ],
+      "type": "string"
+    },
+    "generator_name": {
+      "description": "Name of the generator tool, separate from the semver generator_version.",
+      "type": "string"
+    },
+    "generator_version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[A-Za-z0-9.-]+)?$",
+      "type": "string"
+    },
+    "job_id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "type": "string"
+    },
+    "model_version": {
+      "description": "Model version, when a model was used. Null when generation used no model.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "operations": {
+      "description": "Typed geometry operations this job executed, in order. Each entry must match the operation schema (v0.2.0). This is the home of the P3 typed object ops: the scene schema stays declarative (what exists) and the job records how it was built. A job with no operations ran no geometry ops.",
+      "items": {
+        "$ref": "#/$defs/operation"
+      },
+      "type": "array"
+    },
+    "performance_measurements": {
+      "items": {
+        "$ref": "#/$defs/performance_measurement"
+      },
+      "type": "array"
+    },
+    "previous_job_id": {
+      "type": "string"
+    },
+    "remaining_defects": {
+      "items": {
+        "$ref": "#/$defs/defect"
+      },
+      "type": "array"
+    },
+    "retry_count": {
+      "description": "Number of retries already attempted for this job. Zero on first attempt.",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "scene_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.2.0",
+      "type": "string"
+    },
+    "seed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "status": {
+      "const": "PROVISIONAL",
+      "type": "string"
+    },
+    "validation_results": {
+      "items": {
+        "$ref": "#/$defs/validation_result"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "job_id",
+    "seed",
+    "generator_version",
+    "model_version",
+    "asset_dependencies",
+    "validation_results",
+    "performance_measurements",
+    "changes_from_previous",
+    "remaining_defects",
+    "retry_count",
+    "escalation_state"
+  ],
+  "title": "Hermes City World Engine Generation Job",
+  "type": "object"
+}

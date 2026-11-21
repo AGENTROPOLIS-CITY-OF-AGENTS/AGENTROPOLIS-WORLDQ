@@ -1,0 +1,185 @@
+{
+  "$id": "https://agentropolis.example/schemas/provenance.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "fact_type": {
+            "const": "unknown"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source": {
+            "properties": {
+              "kind": {
+                "const": "unknown"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "description": "PROVISIONAL pending NEURO approval of P0 definitions. Links every generated element to its approved inputs. A generated element with no provenance record is UNVERIFIED and must not be presented as approved or factual.",
+  "properties": {
+    "approved_input_ref": {
+      "description": "Reference to the approved input this element derives from, when one exists. Omit for pure generated decisions.",
+      "type": "string"
+    },
+    "claim_label": {
+      "description": "Evidence label for the claim this record supports.",
+      "enum": [
+        "VERIFIED",
+        "REPORTED",
+        "INFERRED",
+        "UNKNOWN"
+      ],
+      "type": "string"
+    },
+    "claim_source": {
+      "description": "Where the claim came from: a file, test run, human approval, or named report.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "element_id": {
+      "description": "Identifier of the generated element this record covers, for example a scene_id, asset_id, or spatial-graph node id.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "element_type": {
+      "enum": [
+        "scene",
+        "district",
+        "building",
+        "floor",
+        "room",
+        "asset",
+        "node",
+        "edge",
+        "camera",
+        "material",
+        "other",
+        "operation"
+      ],
+      "type": "string"
+    },
+    "fact_type": {
+      "description": "verified-fact means the element matches an approved input checked by a human or an independent test. generated-decision means the generator chose it and no approved input fixes it. assumption means it rests on an unstated premise. unknown means provenance is missing.",
+      "enum": [
+        "verified-fact",
+        "generated-decision",
+        "assumption",
+        "unknown"
+      ],
+      "type": "string"
+    },
+    "license": {
+      "additionalProperties": false,
+      "properties": {
+        "license_text": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "spdx_id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "spdx_id"
+      ],
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "record_id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "type": "string"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "recorded_by": {
+      "type": "string"
+    },
+    "revision": {
+      "additionalProperties": false,
+      "properties": {
+        "commit": {
+          "pattern": "^[0-9a-f]{7,40}$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "0.2.0",
+      "type": "string"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "approver": {
+          "description": "Person or role who approved this input, when known. Do not invent an approver.",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "approved-input",
+            "licensed-asset",
+            "user-supplied",
+            "generated",
+            "public-source",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "reference": {
+          "description": "URI, file path, or citation identifying the input. Use UNKNOWN only when kind is unknown, and then fact_type must be unknown.",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "type": "object"
+    },
+    "status": {
+      "const": "PROVISIONAL",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "record_id",
+    "element_id",
+    "element_type",
+    "source",
+    "revision",
+    "license",
+    "fact_type",
+    "recorded_at"
+  ],
+  "title": "Hermes City World Engine Provenance Record",
+  "type": "object"
+}
