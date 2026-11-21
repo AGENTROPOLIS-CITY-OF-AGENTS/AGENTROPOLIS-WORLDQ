@@ -1,0 +1,61 @@
+{
+  "device": "headless Chromium SwiftShader",
+  "workload": "11 towers + 100 agents",
+  "desktop": {
+    "device": "headless Chromium SwiftShader",
+    "workload": "11 towers + 100 agents",
+    "frame": {
+      "last": 83.30000000000018,
+      "avg": 101.66166666666666,
+      "min": 33.29999999999973,
+      "max": 216.69999999999982,
+      "p95": 166.60000000000014,
+      "count": 60
+    },
+    "tickRate": 49.57454732045351,
+    "drawCalls": 90,
+    "triangles": 4886,
+    "simStatus": "running",
+    "tick": 293,
+    "contextVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "threeRevision": "149",
+    "webgpuPresent": true,
+    "consoleErrors": 0
+  },
+  "phone": {
+    "device": "headless Chromium SwiftShader",
+    "workload": "11 towers + 100 agents",
+    "frame": {
+      "last": 66.5,
+      "avg": 31.108333333333334,
+      "min": 16.5,
+      "max": 83.30000000000018,
+      "p95": 66.70000000000073,
+      "count": 60
+    },
+    "tickRate": 59.96913758082984,
+    "drawCalls": 90,
+    "triangles": 4886,
+    "simStatus": "running",
+    "tick": 338,
+    "contextVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "threeRevision": "149",
+    "webgpuPresent": true,
+    "consoleErrors": 0
+  },
+  "interpolation": {
+    "samples": 5,
+    "agentsSampled": 100,
+    "maxJumpPerSample": 0.5530527495231355,
+    "comparisons": 400,
+    "boundPerSample": 2,
+    "smooth": true
+  },
+  "consoleErrors": 0,
+  "autotestPass": true,
+  "evidence": {
+    "desktop": "tests/evidence/desktop-1280x720.png",
+    "phone": "tests/evidence/phone-390x844.png",
+    "autotest": "tests/evidence/autotest-1280x720.png"
+  }
+}

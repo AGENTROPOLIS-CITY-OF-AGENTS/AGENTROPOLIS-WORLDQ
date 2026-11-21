@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "check": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_criteria": {
+          "description": "Plain-language statement of what counts as a pass, including the numeric threshold.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "building-scale",
+            "room-clearance",
+            "door-alignment",
+            "elevator-alignment",
+            "collision-accuracy",
+            "navigation-reachability",
+            "camera-continuity",
+            "agent-movement",
+            "scene-memory",
+            "frame-time",
+            "generation-reproducibility",
+            "other"
+          ],
+          "type": "string"
+        },
+        "check_id": {
+          "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+          "type": "string"
+        },
+        "equation": {
+          "description": "Explicit equation used, for example error_m = abs(measured_m - expected_m). Use only named quantities defined in this check.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "measured_value": {
+          "description": "Measured value, in the units named by unit. Omit only when result is not-run.",
+          "type": "number"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "not-run",
+            "not-applicable"
+          ],
+          "type": "string"
+        },
+        "tolerance": {
+          "additionalProperties": false,
+          "description": "Tolerance in the same unit as the measured value. operator states how the tolerance is applied.",
+          "properties": {
+            "operator": {
+              "enum": [
+                "abs",
+                "relative",
+                "max",
+                "min"
+              ],
+              "type": "string"
+            },
+            "unit": {
+              "description": "Unit of the tolerance and the measured value, for example meter, second, millisecond, megabyte, percent, count.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": [
+            "value",
+            "unit",
+            "operator"
+          ],
+          "type": "object"
+        },
+        "unit": {
+          "description": "Unit of expected_value and measured_value. Use SI units where possible: meter, second, millisecond, megabyte, percent, count.",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "check_id",
+        "category",
+        "equation",
+        "unit",
+        "tolerance",
+        "acceptance_criteria",
+        "result"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://agentropolis.example/schemas/validation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "PROVISIONAL pending NEURO approval of P0 definitions. Validation checks for a generated scene or job. Every check states its equation, its units, its tolerance, and its acceptance criteria explicitly. A check with result pass but no measured_value is not evidence; the validation script flags it as an extra warning.",
+  "properties": {
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/check"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "job_id": {
+      "description": "Generation job this validation run covers, when applicable.",
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "type": "string"
+    },
+    "scene_id": {
+      "description": "Scene this validation run covers.",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.2.0",
+      "type": "string"
+    },
+    "status": {
+      "const": "PROVISIONAL",
+      "type": "string"
+    },
+    "validator": {
+      "description": "Tool, test suite, or person that ran the checks. Do not invent a verifier.",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "run_id",
+    "scene_id",
+    "validator",
+    "checks"
+  ],
+  "title": "Hermes City World Engine Validation Run",
+  "type": "object"
+}

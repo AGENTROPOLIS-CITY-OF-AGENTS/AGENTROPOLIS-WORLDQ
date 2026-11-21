@@ -1,0 +1,251 @@
+{
+  "$id": "https://agentropolis.example/schemas/asset.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "PROVISIONAL pending NEURO approval of P0 definitions. One record per 3D asset used by the pilot. No asset is claimed available unless its source, revision, license and provenance link are recorded here and verified. Do not fabricate asset availability.",
+  "properties": {
+    "asset_id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{2,63}$",
+      "type": "string"
+    },
+    "compatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "engines": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "min_threejs_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "type": "string"
+        },
+        "requires_webgl2": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "engines",
+        "min_threejs_version"
+      ],
+      "type": "object"
+    },
+    "dimensions_m": {
+      "additionalProperties": false,
+      "properties": {
+        "depth_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "height_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "width_m",
+        "depth_m",
+        "height_m"
+      ],
+      "type": "object"
+    },
+    "file_size_bytes": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "format": {
+      "additionalProperties": false,
+      "properties": {
+        "container": {
+          "enum": [
+            "glb",
+            "gltf",
+            "fbx",
+            "obj",
+            "usd",
+            "usdz",
+            "png",
+            "jpg",
+            "other"
+          ],
+          "type": "string"
+        },
+        "unit": {
+          "const": "meter",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "container",
+        "version"
+      ],
+      "type": "object"
+    },
+    "hardware_requirements": {
+      "additionalProperties": false,
+      "properties": {
+        "estimated_draw_calls": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "min_gpu_memory_mb": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "min_system_memory_mb": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "target_device_class": {
+          "enum": [
+            "low-phone",
+            "phone",
+            "desktop",
+            "workstation"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "min_gpu_memory_mb",
+        "min_system_memory_mb"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "enum": [
+        "building",
+        "prop",
+        "character",
+        "vehicle",
+        "vegetation",
+        "environment",
+        "ui",
+        "other"
+      ],
+      "type": "string"
+    },
+    "license": {
+      "additionalProperties": false,
+      "properties": {
+        "allows_commercial_use": {
+          "type": "boolean"
+        },
+        "allows_modification": {
+          "type": "boolean"
+        },
+        "attribution_required": {
+          "type": "boolean"
+        },
+        "license_text": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "spdx_id": {
+          "description": "SPDX identifier, or CUSTOM with license_text supplied. UNKNOWN is not acceptable for pilot use.",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "spdx_id",
+        "allows_commercial_use",
+        "allows_modification"
+      ],
+      "type": "object"
+    },
+    "name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "type": "string"
+    },
+    "provenance_link": {
+      "description": "Link to the provenance record for this asset. Must resolve to a provenance schema instance.",
+      "format": "uri",
+      "type": "string"
+    },
+    "revision": {
+      "additionalProperties": false,
+      "properties": {
+        "commit": {
+          "pattern": "^[0-9a-f]{7,40}$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "0.2.0",
+      "type": "string"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "original",
+            "licensed",
+            "public-domain",
+            "generated",
+            "third-party"
+          ],
+          "type": "string"
+        },
+        "uri": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "origin",
+        "uri"
+      ],
+      "type": "object"
+    },
+    "status": {
+      "const": "PROVISIONAL",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "asset_id",
+    "name",
+    "source",
+    "revision",
+    "license",
+    "format",
+    "compatibility",
+    "hardware_requirements",
+    "provenance_link"
+  ],
+  "title": "Hermes City World Engine 3D Asset Record",
+  "type": "object"
+}

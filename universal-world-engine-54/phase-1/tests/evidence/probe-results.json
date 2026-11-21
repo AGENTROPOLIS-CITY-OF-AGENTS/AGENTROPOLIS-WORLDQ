@@ -1,0 +1,251 @@
+{
+  "probe": "cdp-probe",
+  "demo": "/home/hatch/workspace/builds/universal-world-engine-54/phase-1/profiles/city/demo.html",
+  "startedAt": "2026-11-09T01:45:48.224Z",
+  "viewports": {
+    "desktop": {
+      "title": "AGENTROPOLIS UNIVERSAL WORLD ENGINE 54 - Phase 1 City Demo (Pre-launch)",
+      "threeRevision": "149",
+      "hudTick": "60",
+      "hudDrawCalls": "90",
+      "hudTriangles": "4886",
+      "hudChain": "not yet verified",
+      "hudSimStatus": "running",
+      "hudContext": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "benchmark": {
+        "device": "headless Chromium SwiftShader",
+        "workload": "11 towers + 100 agents",
+        "frame": {
+          "last": 83.30000000000018,
+          "avg": 101.66166666666666,
+          "min": 33.29999999999973,
+          "max": 216.69999999999982,
+          "p95": 166.60000000000014,
+          "count": 60
+        },
+        "tickRate": 49.57454732045351,
+        "drawCalls": 90,
+        "triangles": 4886,
+        "simStatus": "running",
+        "tick": 293,
+        "contextVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "threeRevision": "149",
+        "webgpuPresent": true,
+        "consoleErrors": 0
+      },
+      "towerCount": 11,
+      "serialize": {
+        "schema_version": "0.2.0",
+        "status": "PROVISIONAL",
+        "mode": "development",
+        "geometry": "procedural",
+        "note": "PROVISIONAL v0.2.0 scene stub. No save or load yet. Geometry is procedural development mode, not final art.",
+        "towers": [
+          {
+            "id": "hermes-hq",
+            "sign": "HERMES HQ",
+            "tag": "CIVIC SHELL - CHIEF ORCHESTRATION TOWER",
+            "x": 0,
+            "z": -40,
+            "h": 46,
+            "w": 13,
+            "d": 13,
+            "accent": 58879,
+            "shape": "STEPPED SPIRE"
+          },
+          {
+            "id": "mission-control",
+            "sign": "MISSION CTRL",
+            "tag": "BOT MODE ORGANIZATION - OPERATIONS FLOOR",
+            "x": 33,
+            "z": -28,
+            "h": 28,
+            "w": 22,
+            "d": 13,
+            "accent": 16721464,
+            "shape": "WIDE OPS BLOCK - DISH"
+          },
+          {
+            "id": "nemoclaw-works",
+            "sign": "NEMOCLAW",
+            "tag": "BUILDER DISTRICT - PROTOTYPES AND DOCS",
+            "x": -34,
+            "z": -27,
+            "h": 31,
+            "w": 20,
+            "d": 12,
+            "accent": 58879,
+            "shape": "TWIN SLABS - SKY BRIDGE"
+          },
+          {
+            "id": "nemotron-council",
+            "sign": "NEMOTRON",
+            "tag": "RESEARCH DISTRICT - SIGNALS AND EVIDENCE",
+            "x": -54,
+            "z": 0,
+            "h": 29,
+            "w": 19,
+            "d": 19,
+            "accent": 58879,
+            "shape": "ROUND COUNCIL DOME"
+          },
+          {
+            "id": "visual-compute",
+            "sign": "VISUAL COMPUTE",
+            "tag": "GOVERNED PRESENTATION LAYER - DISPLAY ONLY",
+            "x": 54,
+            "z": -2,
+            "h": 35,
+            "w": 16,
+            "d": 10,
+            "accent": 16721464,
+            "shape": "PORTAL SCREEN FRAME"
+          },
+          {
+            "id": "wallet-rails",
+            "sign": "WALLET RAILS",
+            "tag": "AQUADUCT - PAYMENT RAILS",
+            "x": -33,
+            "z": 25,
+            "h": 21,
+            "w": 18,
+            "d": 14,
+            "accent": 16721464,
+            "shape": "LOW VAULT - CORNER POSTS"
+          },
+          {
+            "id": "hermes-community",
+            "sign": "COMMUNITY",
+            "tag": "PARTICIPATION - GOVERNED ONBOARDING",
+            "x": 33,
+            "z": 24,
+            "h": 24,
+            "w": 18,
+            "d": 16,
+            "accent": 16721464,
+            "shape": "STEPPED TERRACES"
+          },
+          {
+            "id": "hermes-social",
+            "sign": "SOCIAL",
+            "tag": "SOCIAL SURFACE - SOCIAL TRANSIT GRID",
+            "x": -11,
+            "z": 42,
+            "h": 22,
+            "w": 11,
+            "d": 11,
+            "accent": 58879,
+            "shape": "SLIM TOWER - ORBIT RINGS"
+          },
+          {
+            "id": "super-hermes",
+            "sign": "SUPER HERMES",
+            "tag": "CAPABILITY INTELLIGENCE OFFICE",
+            "x": 15,
+            "z": 43,
+            "h": 26,
+            "w": 14,
+            "d": 14,
+            "accent": 16721464,
+            "shape": "ORB ON A PEDESTAL"
+          },
+          {
+            "id": "chaos-mall",
+            "sign": "CHAOS MALL",
+            "tag": "THE MALL - SHOPS AND CHAOS",
+            "x": -42,
+            "z": 45,
+            "h": 13,
+            "w": 30,
+            "d": 17,
+            "accent": 16757504,
+            "shape": "LOW WIDE MALL SLAB"
+          },
+          {
+            "id": "builder-commons",
+            "sign": "BUILDER COMMONS",
+            "tag": "CHAOS CODE - OPEN BUILD WORLD",
+            "x": -18,
+            "z": -48,
+            "h": 38,
+            "w": 15,
+            "d": 15,
+            "accent": 10513407,
+            "shape": "HEX PRISM - LATTICE CROWN"
+          }
+        ],
+        "agents": {
+          "count": 100,
+          "stateHistogram": {
+            "NORMAL": 100,
+            "SUSPECT": 0,
+            "QUARANTINED": 0,
+            "FORENSIC_HOLD": 0,
+            "REMEDIATED": 0,
+            "REAUTHORIZED": 0
+          }
+        }
+      },
+      "screenshot": "/home/hatch/workspace/builds/universal-world-engine-54/phase-1/tests/evidence/desktop-1280x720.png"
+    },
+    "phone": {
+      "title": "AGENTROPOLIS UNIVERSAL WORLD ENGINE 54 - Phase 1 City Demo (Pre-launch)",
+      "hudTick": "60",
+      "hudDrawCalls": "90",
+      "benchmark": {
+        "device": "headless Chromium SwiftShader",
+        "workload": "11 towers + 100 agents",
+        "frame": {
+          "last": 66.5,
+          "avg": 31.108333333333334,
+          "min": 16.5,
+          "max": 83.30000000000018,
+          "p95": 66.70000000000073,
+          "count": 60
+        },
+        "tickRate": 59.96913758082984,
+        "drawCalls": 90,
+        "triangles": 4886,
+        "simStatus": "running",
+        "tick": 338,
+        "contextVersion": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+        "threeRevision": "149",
+        "webgpuPresent": true,
+        "consoleErrors": 0
+      },
+      "towerCount": 11,
+      "screenshot": "/home/hatch/workspace/builds/universal-world-engine-54/phase-1/tests/evidence/phone-390x844.png"
+    }
+  },
+  "autotest": {
+    "done": true,
+    "lines": [
+      "PASS - engine loads - canonical/sha256/mulberry32 present",
+      "PASS - THREE r149 present - REVISION=149",
+      "PASS - district has 11 towers - towers=11",
+      "PASS - sim runs 60 ticks - tick=60",
+      "PASS - chain verifies - chain valid; replay head match=true head=1d7273a69786b45c50a4a57586d7f8c19598369556b5c13ba96479e158727339",
+      "PASS - clock steps - 60 Hz fixed step, alpha in [0,1)",
+      "PASS - HUD shows live values - HUD bound to measured state",
+      "PASS - zero console errors captured - errors=0"
+    ],
+    "text": "PASS - engine loads - canonical/sha256/mulberry32 present\nPASS - THREE r149 present - REVISION=149\nPASS - district has 11 towers - towers=11\nPASS - sim runs 60 ticks - tick=60\nPASS - chain verifies - chain valid; replay head match=true head=1d7273a69786b45c50a4a57586d7f8c19598369556b5c13ba96479e158727339\nPASS - clock steps - 60 Hz fixed step, alpha in [0,1)\nPASS - HUD shows live values - HUD bound to measured state\nPASS - zero console errors captured - errors=0"
+  },
+  "interpolation": {
+    "samples": 5,
+    "agentsSampled": 100,
+    "maxJumpPerSample": 0.5530527495231355,
+    "comparisons": 400,
+    "boundPerSample": 2,
+    "smooth": true
+  },
+  "consoleErrors": 0,
+  "exceptions": [],
+  "pass": true,
+  "freezeTick": {
+    "tick": 30,
+    "frozenAtOrBefore": true
+  },
+  "consoleEntries": [],
+  "autotestPass": true
+}
